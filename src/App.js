@@ -4,6 +4,9 @@ import Todo from './components/Todo';
 import { Grid, Tab, Tabs, Container, Button, Card, TextField, Box, Typography } from "@mui/material";
 import { a11yProps } from "./utils/auxiliary";
 import Header from './components/Header';
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux";
+
 
 const modes = [
   'all',
@@ -12,18 +15,32 @@ const modes = [
 ]
 
 function App() {
+
+  // const state = useSelector((state) => state.bank);
+
+  // const dispatch = useDispatch();
+
+  // console.log(state)
+
   const [todos, setTodos] = useState([])
   const [outTodos, setOutTodos] = useState([])
   const [mode, setMode] = useState(modes[0])
   const [value, setValue] = useState(0);
   const [newTodoValue, setNewTodoValue] = useState('')
   const [currentLastIndex, setCurrentLastIndex] = useState(todos.length)
+
   useEffect(() => {
-    fetchTodos()
-      .then(data => {
-        setTodos(data)
-        setCurrentLastIndex(data.length - 1)
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then(response => {
+        console.log(response)
+        return response.json()
       })
+      .then(json => console.log(json))
+    // fetchTodos()
+    //   .then(data => {
+    //     setTodos(data)
+    //     setCurrentLastIndex(data.length - 1)
+    //   })
   }, [])
 
   useEffect(() => {

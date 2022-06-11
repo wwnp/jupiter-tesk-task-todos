@@ -5,9 +5,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Prompt', sans-serif;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.MuiSvgIcon-root {
+  cursor: pointer;
+}
+
+/* .MuiGrid-item h1 {
+  padding-left: 10px;
+} */
+
+.text-secondary {
+  color: #777;
+  font-style: italic;
+}
+
+.pl-1 {
+  padding-left: 1rem;
+}
+
+.MuiTypography-h1 {
+  font-family: 'Russo One', sans-serif !important;
 }

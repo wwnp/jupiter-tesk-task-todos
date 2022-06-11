@@ -6,6 +6,7 @@ export const fetchTodos = async () => {
       "Content-Type": "application/json",
     },
   })
+  console.log(response)
   const json = response.json()
   console.log(json)
   return json

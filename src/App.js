@@ -6,6 +6,7 @@ import { a11yProps } from "./utils/auxiliary";
 import Header from './components/Header';
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
+import { testAction, setCurrentLastIndexAction, setNewTodoValueAction, addTodoAction } from './store/actions/index';
 
 
 const modes = [
@@ -14,34 +15,48 @@ const modes = [
   'active'
 ]
 
+const dbTodos = [
+  {
+    "id": 0,
+    "title": "Buy an elephant",
+    "completed": false
+  },
+  {
+    "id": 1,
+    "title": "Make the test task",
+    "completed": true
+  },
+  {
+    "id": 2,
+    "title": "Drink a coffee",
+    "completed": true
+  }
+]
+
 function App() {
+  const state = useSelector((state) => state.todos);
+  const newTodoValue = useSelector((state) => state.todos.newTodoValue);
 
-  // const state = useSelector((state) => state.bank);
+  const dispatch = useDispatch();
 
-  // const dispatch = useDispatch();
+  console.log(state)
 
-  // console.log(state)
-
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState(dbTodos)
   const [outTodos, setOutTodos] = useState([])
   const [mode, setMode] = useState(modes[0])
   const [value, setValue] = useState(0);
-  const [newTodoValue, setNewTodoValue] = useState('')
-  const [currentLastIndex, setCurrentLastIndex] = useState(todos.length)
+  // const [newTodoValue, setNewTodoValue] = useState('')
+  // const [currentLastIndex, setCurrentLastIndex] = useState(todos.length)
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(response => {
-        console.log(response)
-        return response.json()
-      })
-      .then(json => console.log(json))
-    // fetchTodos()
-    //   .then(data => {
-    //     setTodos(data)
-    //     setCurrentLastIndex(data.length - 1)
-    //   })
-  }, [])
+  // 
+
+  // useEffect(() => {
+  //   fetchTodos()
+  //     .then(data => {
+  //       setTodos(data)
+  //       setCurrentLastIndexAction(data.length - 1)
+  //     })
+  // }, [])
 
   useEffect(() => {
     if (mode === 'all') {
@@ -83,13 +98,9 @@ function App() {
 
   const addTodo = (e) => {
     e.preventDefault()
-    setCurrentLastIndex(currentLastIndex + 1)
-    const newTodo = {
-      id: currentLastIndex + 1,
-      title: newTodoValue,
-      completed: false
-    }
-    setTodos([...todos, newTodo])
+
+    dispatch(setCurrentLastIndexAction())
+    dispatch(addTodoAction())
   }
   return (
     <>
@@ -121,8 +132,7 @@ function App() {
                   fullWidth
                   label="New todo"
                   id="newTodoValue"
-                  value={newTodoValue}
-                  onInput={(e) => setNewTodoValue(e.target.value)}
+                  onInput={(e) => dispatch(setNewTodoValueAction(e.target.value))}
                 />
               </Grid>
               <Grid

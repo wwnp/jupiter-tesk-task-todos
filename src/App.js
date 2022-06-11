@@ -157,7 +157,6 @@ function App() {
           <Grid
             item
             container
-            // justifyContent={'center'}
             alignItems='center'
             xs={12}
             sm={6}

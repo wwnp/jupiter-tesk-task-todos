@@ -29,7 +29,7 @@ function App() {
     if (mode === modes[1]) {
       dispatch(setOutTodosAction(todos.filter(todo => todo.completed)))
     }
-    if (mode === modes[3]) {
+    if (mode === modes[2]) {
       dispatch(setOutTodosAction(todos.filter(todo => !todo.completed)))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

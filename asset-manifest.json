@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/mindbox-tesk-task-todos/static/css/main.7456a0be.css",
-    "main.js": "/mindbox-tesk-task-todos/static/js/main.43913f00.js",
+    "main.js": "/mindbox-tesk-task-todos/static/js/main.a82450bd.js",
     "static/media/brand.svg": "/mindbox-tesk-task-todos/static/media/brand.5814765c90b22823eaf9920137350a2f.svg",
     "index.html": "/mindbox-tesk-task-todos/index.html",
     "main.7456a0be.css.map": "/mindbox-tesk-task-todos/static/css/main.7456a0be.css.map",
-    "main.43913f00.js.map": "/mindbox-tesk-task-todos/static/js/main.43913f00.js.map"
+    "main.a82450bd.js.map": "/mindbox-tesk-task-todos/static/js/main.a82450bd.js.map"
   },
   "entrypoints": [
     "static/css/main.7456a0be.css",
-    "static/js/main.43913f00.js"
+    "static/js/main.a82450bd.js"
   ]
 }

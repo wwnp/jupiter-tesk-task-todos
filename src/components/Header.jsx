@@ -14,7 +14,7 @@ const Header = () => {
             variant={"contained"}
             color='success'
             sx={{ marginRight: '10px' }}
-            href='https://www.google.com'
+            href='https://github.com/wwnp/mindbox-tesk-task-todos'
             target="_blank"
           >
             GitHub Repo
@@ -22,7 +22,7 @@ const Header = () => {
           <Button
             variant={"contained"}
             color="success"
-            href='https://www.google.com'
+            href='https://github.com/wwnp'
             sx={{ marginRight: '10px' }}
             target="_blank"
           >
@@ -31,10 +31,10 @@ const Header = () => {
           <Button
             variant={"contained"}
             color="success"
-            href='https://www.google.com'
+            href='https://spb.hh.ru/resume/e958213aff09d3ce9a0039ed1f724654675655'
             target="_blank"
           >
-            HH Resume
+            HH Summary
           </Button>
         </Toolbar>
       </AppBar>

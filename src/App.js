@@ -4,76 +4,49 @@ import Todo from './components/Todo';
 import { Grid, Tab, Tabs, Container, Button, Card, TextField, Box, Typography } from "@mui/material";
 import { a11yProps } from "./utils/auxiliary";
 import Header from './components/Header';
-
-const modes = [
-  'all',
-  'completed',
-  'active'
-]
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux";
+import { setCurrentLastIndexAction, setNewTodoValueAction, addTodoAction, removeTodoAction, setOutTodosAction, setTodosAction, setModeAction, toggleCompleteAction, clearCompletedAction } from './store/actions/index';
+import { dbTodos, modes } from "./utils/config";
 
 function App() {
-  const [todos, setTodos] = useState([])
-  const [outTodos, setOutTodos] = useState([])
-  const [mode, setMode] = useState(modes[0])
+  const dispatch = useDispatch();
+
+  const todos = useSelector((state) => state.todos.todos);
+  const outTodos = useSelector((state) => state.todos.outTodos);
+  const mode = useSelector((state) => state.todos.mode);
   const [value, setValue] = useState(0);
-  const [newTodoValue, setNewTodoValue] = useState('')
-  const [currentLastIndex, setCurrentLastIndex] = useState(todos.length)
+
   useEffect(() => {
-    fetchTodos()
-      .then(data => {
-        setTodos(data)
-        setCurrentLastIndex(data.length - 1)
-      })
+    dispatch(setTodosAction(dbTodos))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    if (mode === 'all') {
-      setOutTodos(todos)
+    if (mode === modes[0]) {
+      dispatch(setOutTodosAction(todos))
     }
-    if (mode === 'completed') {
-      setOutTodos(todos.filter(todo => todo.completed))
+    if (mode === modes[1]) {
+      dispatch(setOutTodosAction(todos.filter(todo => todo.completed)))
     }
-    if (mode === 'active') {
-      setOutTodos(todos.filter(todo => !todo.completed))
+    if (mode === modes[3]) {
+      dispatch(setOutTodosAction(todos.filter(todo => !todo.completed)))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, todos])
-
-  const removeTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id))
-  }
-
-  const toggleCompleted = (id) => {
-    setTodos(todos.map(todo => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed
-      }
-      return todo
-    }))
-
-  }
-
-  const clearCompleted = () => {
-    setTodos(todos.map(todo => {
-      todo.completed = false
-      return todo
-    }))
-  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    setMode(modes[newValue])
+    dispatch(setModeAction(modes[newValue]))
   }
 
   const addTodo = (e) => {
     e.preventDefault()
-    setCurrentLastIndex(currentLastIndex + 1)
-    const newTodo = {
-      id: currentLastIndex + 1,
-      title: newTodoValue,
-      completed: false
-    }
-    setTodos([...todos, newTodo])
+
+    dispatch(setCurrentLastIndexAction())
+    dispatch(addTodoAction())
   }
+
   return (
     <>
       <Header></Header>
@@ -104,8 +77,7 @@ function App() {
                   fullWidth
                   label="New todo"
                   id="newTodoValue"
-                  value={newTodoValue}
-                  onInput={(e) => setNewTodoValue(e.target.value)}
+                  onInput={(e) => dispatch(setNewTodoValueAction(e.target.value))}
                 />
               </Grid>
               <Grid
@@ -141,8 +113,8 @@ function App() {
                   id={todo.id}
                   title={todo.title}
                   completed={todo.completed}
-                  removeTodo={removeTodo}
-                  toggleCompleted={toggleCompleted}
+                  removeTodo={() => dispatch(removeTodoAction(todo.id))}
+                  toggleCompleted={() => dispatch(toggleCompleteAction(todo.id))}
                 >
                 </Todo>
               })
@@ -197,7 +169,7 @@ function App() {
             <Button
               variant="contained"
               color="error"
-              onClick={clearCompleted}
+              onClick={() => dispatch(clearCompletedAction())}
               size={'small'}
             >
               Clear completed

@@ -49,7 +49,6 @@ function App() {
 
   return (
     <>
-      test
       <Header></Header>
       <Container>
         <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>

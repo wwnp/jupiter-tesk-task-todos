@@ -24,6 +24,9 @@ export const todosReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case ADD_TODO:
+      if (state.newTodoValue.length < 3) {
+        return state
+      }
       const newTodo = {
         id: state.currentLastIndex,
         title: state.newTodoValue,
